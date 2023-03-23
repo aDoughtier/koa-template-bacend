@@ -1,8 +1,9 @@
 //负责处理数据库操作
 const User = require("../Model/User")
 class UserService {
+  //创建用户
   async createUser(userInfo) {
-    const { username, password } = userInfo
+    const { username, password, isAdmin = 0 } = userInfo
     // 虽然User是一个类，但是不应该通过new去调用
     /**
      * 方式1
@@ -16,12 +17,19 @@ class UserService {
      *      await user.save();
      */
     //方式2
-    const user = await User.create({ username, password })
+    const user = await User.create({ username, password, isAdmin })
     //最好不要直接打印这个对象，因为有很多其他属性
     // console.log(user)
     console.log(user.toJSON()); // 最好
     // console.log(JSON.stringify(user, null, 4)); // 也不错
     return user.toJSON()
+  }
+
+  //查询用户:可用与修改用户名功能，忘记密码重置功能，登录功能
+  async getUserBy({ userUuid, username, password, phoneNumber, email, wechat }) {
+    const user = await User.findOne({ where: { title: 'My Title' } });
+    
+    return user ? user.toJSON() : "未找到"
   }
 }
 

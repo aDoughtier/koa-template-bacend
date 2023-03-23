@@ -25,8 +25,18 @@ const User = seq.define('koa_user', {
   },
   phoneNumber: {
     type: DataTypes.CHAR(20), //一个中文占据3或者4个字符，取决于字符集
-    allowNull: true,
+    allowNull: false,
     comment: "号码"
+  },
+  email: {
+    type: DataTypes.CHAR(50),
+    allowNull: true,
+    comment: "电子邮箱"
+  },
+  weChat: {
+    type: DataTypes.CHAR(50), 
+    allowNull: true,
+    comment: "微信号"
   },
   isAdmin: {
     type: DataTypes.BOOLEAN,
@@ -58,7 +68,7 @@ const User = seq.define('koa_user', {
 })
 //一般执行一遍就行了，但是这样岂不是每一个模型都需要执行一次？？？
 // User.sync() //- 如果表不存在,则创建该表(如果已经存在,则不执行任何操作)
-// User.sync({ force: true }) //- 将创建表,如果表已经存在,则将其首先删除
+User.sync({ force: true }) //- 将创建表,如果表已经存在,则将其首先删除
 // User.sync({ alter: true }) - 这将检查数据库中表的当前状态(它具有哪些列,它们的数据类型等),然后在表中进行必要的更改以使其与模型匹配.
 
 module.exports = User
