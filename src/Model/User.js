@@ -5,7 +5,7 @@ const seq = require('../db/sequelize')
 // 创建模型(Model user -> 表 users) ,由一个库自动完成，复数，但是我不想这样
 const User = seq.define('koa_user', {
   // id 会被sequelize自动创建, 管理
-  userUuid: {
+  user_uuid: {
     type: DataTypes.UUID,
     allowNull: false,
     defaultValue: DataTypes.UUIDV4,
@@ -23,7 +23,7 @@ const User = seq.define('koa_user', {
     allowNull: false,
     comment: '密码',
   },
-  phoneNumber: {
+  phone_number: {
     type: DataTypes.CHAR(20), //一个中文占据3或者4个字符，取决于字符集
     allowNull: false,
     comment: "号码"
@@ -33,16 +33,20 @@ const User = seq.define('koa_user', {
     allowNull: true,
     comment: "电子邮箱"
   },
-  weChat: {
-    type: DataTypes.CHAR(50), 
+  wechat: {
+    type: DataTypes.CHAR(50),
     allowNull: true,
     comment: "微信号"
   },
-  isAdmin: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: 0,
-    comment: '是否为管理员, 0: 不是管理员(默认); 1: 是管理员',
+  age: {
+    type: DataTypes.TINYINT.UNSIGNED,
+    allowNull: true,
+    comment: '年龄',
+  },
+  sex: {
+    type: DataTypes.TINYINT(1),
+    allowNull: true,
+    comment: '性别',
   },
   //会自动创建createAt ,updateAt
   // createTime: {
@@ -61,9 +65,9 @@ const User = seq.define('koa_user', {
 }, {
   tableName: "koa_ user", //自定义表名
   //这三个应该在创建数据库的时候就指定，之后创建表的时候就只需要指定表名
-  charset:"utf8mb4", //这个字符集一个中文占据4个字符
-  collate:" utf8mb4_general_ci", //指定排序规则
-  engine:"InnoDB" //指定引擎
+  charset: "utf8mb4", //这个字符集一个中文占据4个字符
+  collate: " utf8mb4_general_ci", //指定排序规则
+  engine: "InnoDB" //指定引擎
   // timestamps: false // 禁用自动记录的时间戳
 })
 //一般执行一遍就行了，但是这样岂不是每一个模型都需要执行一次？？？

@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize')
+const { Sequelize,Op } = require('sequelize')
 
 const {
   MYSQL_HOST,
@@ -25,3 +25,4 @@ seq
   })
 
 module.exports = seq
+module.exports.Op = Op
